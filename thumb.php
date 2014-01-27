@@ -67,7 +67,12 @@ $file_salt = 'v1.0';
 $file_size = filesize($src);
 $file_time = filemtime($src);
 $file_date = gmdate('D, d M Y H:i:s T',$file_time);
-$file_type = strtolower(substr(strrchr($src,'.'),1));
+
+/* A LINHA ABAIXO FOI ALTERADA, POIS A MESMA APRESENTAVA 1 NO LUGAR ONDE ESTÁ -3, 
+COM ISSO HAVIA UM PROBLEMA AO REALIZAR O DOWNLOAD DA IMAGEM, POIS O NAVEGADOR NÃO IDENTIFICAVA
+O TIPO DE ARQUIVO (EXTENSÃO) */
+
+$file_type = strtolower(substr(strrchr($src,'.'),-3));
 $file_hash = md5($file_salt . ($src.$size.$crop.$trim.$zoom.$align.$sharpen.$gray.$ignore) . $file_time);
 $file_name = THUMB_CACHE . $file_hash . '.img.txt';
 
